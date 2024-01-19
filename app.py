@@ -1,28 +1,9 @@
 import streamlit as st
-from langchain_openai import OpenAI
-from langchain.prompts import PromptTemplate
-import os
-from dotenv import load_dotenv
 from bmr import get_bmr
 from maintenance_calories import get_maintenance_calories
 from required_calories import get_required_calories
+from openai_api_response import get_openai_response
 
-load_dotenv()
-
-llm = OpenAI(temperature=0.0, openai_api_key=os.getenv("OPENAI_API_KEY"))
-
-
-def get_openai_response(question):
-    response = llm.invoke(question)
-    return response
-
-
-question_string = "I am a {age} {gender}. My calorie goal for the day is {required_calories}. I am a {dietry}. I want to have {number_of_meals} meals in a day. Could you please suggest me a meal plan for today?"
-
-prompt_template = PromptTemplate(
-    input_variables=["age", "gender", "required_calories", "dietry", "number_of_meals"],
-    template=question_string,
-)
 
 st.title("Get Your Custom Diet Plan")
 
@@ -53,8 +34,6 @@ with st.form("calorie_form"):
         key="dietry_restrictions",
     )
 
-    number_of_meals = col1.slider("Number of meals you want to eat in a day", 2, 7, 3)
-
 if col1.button("Calculate"):
     bmr = get_bmr(current_weight, current_height, age, gender)
     maintenance_calories = get_maintenance_calories(bmr, activity_level)
@@ -64,15 +43,11 @@ if col1.button("Calculate"):
     col2.write("Hi " + name + "!")
     col2.write("Your maintenance calories are: " + str(round(maintenance_calories)))
     col2.write("Your required calories are: " + str(round(required_calories)))
-    col2.write(
-        "** Keep in mind that this is just an estimate and your actual calorie needs may vary depending on your activity level, metabolism, and other factors. It is always best to consult with a healthcare professional or registered dietitian to determine a personalized calorie goal for your specific needs and goals."
-    )
-    question = prompt_template.format(
-        age=age,
-        gender=gender,
-        required_calories=required_calories,
-        dietry=dietry,
-        number_of_meals=number_of_meals,
-    )
-    response = get_openai_response(question=question)
-    col2.write(response)
+    
+    response = get_openai_response(age, gender, required_calories, dietry)
+    col2.write("Here is your custom meal plan:")
+    col2.write("Breakfast: "+response.get("meal1"))
+    col2.write("Mid-day snack: "+response.get("meal2"))
+    col2.write("Lunch: "+response.get("meal3"))
+    col2.write("Evening snack: "+response.get("meal4"))
+    col2.write("Dinner: "+response.get("meal5"))
