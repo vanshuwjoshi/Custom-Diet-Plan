@@ -3,6 +3,9 @@ from langchain_openai import OpenAI
 from langchain.prompts import PromptTemplate
 import os
 from dotenv import load_dotenv
+from bmr import get_bmr
+from maintenance_calories import get_maintenance_calories
+from required_calories import get_required_calories
 
 load_dotenv()
 
@@ -53,39 +56,23 @@ with st.form("calorie_form"):
     number_of_meals = col1.slider("Number of meals you want to eat in a day", 2, 7, 3)
 
 if col1.button("Calculate"):
-    bmr = (10 * current_weight) + (6.25 * current_height) - (5 * age)
-    if gender == "Male":
-        bmr = bmr + 5
-    else:
-        bmr = bmr - 161
-    maintenance_calories = bmr
-    if activity_level == "Sedentary":
-        maintenance_calories *= 1.2
-    elif activity_level == "Moderately active":
-        maintenance_calories *= 1.375
-    elif activity_level == "Highly active":
-        maintenance_calories *= 1.725
-    else:
-        maintenance_calories *= 1.9
-    required_calories = maintenance_calories
-    if desired_weight > current_weight:
-        required_calories += 500
-    elif desired_weight < current_weight:
-        required_calories -= 500
-    else:
-        required_calories = maintenance_calories
+    bmr = get_bmr(current_weight, current_height, age, gender)
+    maintenance_calories = get_maintenance_calories(bmr, activity_level)
+    required_calories = get_required_calories(
+        maintenance_calories, current_weight, desired_weight
+    )
     col2.write("Hi " + name + "!")
     col2.write("Your maintenance calories are: " + str(round(maintenance_calories)))
     col2.write("Your required calories are: " + str(round(required_calories)))
     col2.write(
         "** Keep in mind that this is just an estimate and your actual calorie needs may vary depending on your activity level, metabolism, and other factors. It is always best to consult with a healthcare professional or registered dietitian to determine a personalized calorie goal for your specific needs and goals."
     )
-    question = prompt_template.format(
-        age=age,
-        gender=gender,
-        required_calories=required_calories,
-        dietry=dietry,
-        number_of_meals=number_of_meals,
-    )
-    response = get_openai_response(question=question)
-    col2.write(response)
+    # question = prompt_template.format(
+    #     age=age,
+    #     gender=gender,
+    #     required_calories=required_calories,
+    #     dietry=dietry,
+    #     number_of_meals=number_of_meals,
+    # )
+    # response = get_openai_response(question=question)
+    # col2.write(response)
