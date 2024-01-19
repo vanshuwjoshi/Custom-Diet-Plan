@@ -67,12 +67,12 @@ if col1.button("Calculate"):
     col2.write(
         "** Keep in mind that this is just an estimate and your actual calorie needs may vary depending on your activity level, metabolism, and other factors. It is always best to consult with a healthcare professional or registered dietitian to determine a personalized calorie goal for your specific needs and goals."
     )
-    # question = prompt_template.format(
-    #     age=age,
-    #     gender=gender,
-    #     required_calories=required_calories,
-    #     dietry=dietry,
-    #     number_of_meals=number_of_meals,
-    # )
-    # response = get_openai_response(question=question)
-    # col2.write(response)
+    question = prompt_template.format(
+        age=age,
+        gender=gender,
+        required_calories=required_calories,
+        dietry=dietry,
+        number_of_meals=number_of_meals,
+    )
+    response = get_openai_response(question=question)
+    col2.write(response)
