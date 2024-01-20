@@ -12,18 +12,6 @@ This web application allows users to generate a custom diet plan based on their 
 - **Streamlit Frontend:** The user interface is created using Streamlit, ensuring a smooth and engaging experience.
 - **Hugging Face Hub Deployment:** The application is deployed using the Hugging Face Hub for easy access.
 
-## Getting Started
-
-### Prerequisites
-
-Make sure you have the following installed:
-
-- Python 3.9
-- Langchain
-- OpenAI API key
-- Streamlit
-- Hugging Face Hub account
-
 ## Acknowledgements
 
 - [Langchain](https://langchain.com)
