@@ -1,8 +1,8 @@
 import streamlit as st
-from bmr import get_bmr
-from maintenance_calories import get_maintenance_calories
-from required_calories import get_required_calories
-from openai_api_response import get_openai_response
+from helper_functions.bmr import get_bmr
+from helper_functions.maintenance_calories import get_maintenance_calories
+from helper_functions.required_calories import get_required_calories
+from helper_functions.openai_api_response import get_openai_response
 
 st.title("Get Your Custom Diet Plan")
 
