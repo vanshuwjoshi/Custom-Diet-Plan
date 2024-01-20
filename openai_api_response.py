@@ -39,12 +39,12 @@ response_schema = [meal1, meal2, meal3, meal4, meal5]
 output_parser = StructuredOutputParser.from_response_schemas(response_schema)
 format_instructions = output_parser.get_format_instructions()
 
-def get_openai_response(age,gender,required_calories,dietry):
+def get_openai_response(age,gender,required_calories,dietary):
     question = prompt_template.format(
         age=age,
         gender=gender,
         required_calories=required_calories,
-        dietry=dietry,
+        dietry=dietary,
         format_instructions=format_instructions
     )
     response = llm.invoke(question)

@@ -24,10 +24,10 @@ with st.form("calorie_form"):
         ["Sedentary", "Moderately active", "Highly active", "Extremely active"],
         key="activity_level",
     )
-    dietry = st.sidebar.selectbox(
-        "Your dietry restrictions",
+    dietary = st.sidebar.selectbox(
+        "Your dietary restrictions",
         ["Vegan", "Vegetarian", "Non-vegetarians"],
-        key="dietry_restrictions",
+        key="dietary_restrictions",
     )
 
 if st.sidebar.button("Generate diet"):
@@ -40,7 +40,7 @@ if st.sidebar.button("Generate diet"):
     st.write("Your maintenance calories are: " + str(round(maintenance_calories)))
     st.write("Your required calories are: " + str(round(required_calories)))
 
-    response = get_openai_response(age, gender, required_calories, dietry)
+    response = get_openai_response(age, gender, required_calories, dietary)
     st.header("Here is your custom meal plan:")
     st.subheader("Breakfast:")
     st.write(response.get("meal1"))
