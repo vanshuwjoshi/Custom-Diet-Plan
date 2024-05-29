@@ -1,5 +1,7 @@
 # Custom Diet Generation Web Application
 
+[App Link](https://huggingface.co/spaces/v23joshi/Custom-Diet-Plan)
+
 ## Overview
 
 This web application allows users to generate a custom diet plan based on their personal information and preferences. It leverages Python, Langchain, OpenAI API, and Streamlit to provide an interactive and user-friendly experience.
@@ -11,10 +13,3 @@ This web application allows users to generate a custom diet plan based on their 
 - **Custom Diet Plan:** Utilizes the OpenAI API from Langchain to generate a personalized diet plan.
 - **Streamlit Frontend:** The user interface is created using Streamlit, ensuring a smooth and engaging experience.
 - **Hugging Face Hub Deployment:** The application is deployed using the Hugging Face Hub for easy access.
-
-## Acknowledgements
-
-- [Langchain](https://langchain.com)
-- [OpenAI](https://openai.com)
-- [Streamlit](https://streamlit.io)
-- [Hugging Face Hub](https://huggingface.co)
